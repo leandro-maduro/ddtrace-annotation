@@ -1,0 +1,34 @@
+Metrics/LineLength:
+  Max: 150
+
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/BlockLength:
+  Exclude:
+    - "**/*_spec.rb"
+
+Metrics/ModuleLength:
+  Exclude:
+    - "spec/**/*.rb"
+
+Performance/FixedSize:
+  Exclude:
+    - "spec/**/*.rb"
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - "spec/**/*.rb"
+
+AllCops:
+  Exclude:
+    - spec/spec_helper.rb
+    - "bin/**/*"
+    - "ddtrace-annotation.gemspec"
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - "spec/**/*"
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes

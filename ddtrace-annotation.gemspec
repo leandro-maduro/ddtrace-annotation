@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Leandro Maduro"]
   spec.email         = ["leandromaduro1@gmail.com"]
 
-  spec.summary       = "Write a short summary, because RubyGems requires one."
-  spec.description   = "Write a longer description or delete this line."
+  spec.summary       = "Annotate method to be traced by Datadog Tracing Ruby Client"
+  spec.description   = "ddtrace-annotation allows you to annotate methods to be traced by Datadog Tracing Ruby Client."
   spec.homepage      = "https://github.com/downgba/ddtrace-annotation"
   spec.license       = "MIT"
 

@@ -5,15 +5,11 @@ Metrics/ClassLength:
   Max: 150
 
 Metrics/BlockLength:
-  ExcludedMethods:
-    - "class_eval"
   Exclude:
     - "**/*_spec.rb"
 
 Metrics/MethodLength:
   Max: 20
-  ExcludedMethods:
-    - "included"
 
 Metrics/ModuleLength:
   Exclude:
@@ -38,7 +34,6 @@ AllCops:
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - "spec/**/*"
-
 
 EvalWithLocation:
   Exclude:

@@ -4,8 +4,7 @@ require_relative "errors/invalid_resource"
 
 module Datadog
   module Annotation
-    # Datadog::Annotation::Tracer is responsible for setting up the trace for
-    # the annotated method
+    # Datadog::Annotation::Tracer is responsible for setting up the trace for the annotated method
     class Tracer
       # @param method [Method]
       # @param trace_info [Hash]

@@ -4,12 +4,19 @@ require "ddtrace/annotation/version"
 require "ddtrace/annotation/tracer"
 
 module Datadog
+  # Datadog::Annotation allows you to annotate methods which you want to trace.
+  # Usage:
+  #   class Test
+  #     include Datadog::Annotation
+  #
+  #     __trace method: :test, service: "web"
+  #     def test; end
   module Annotation
     def self.included(base)
       base.class_eval do
         @traced_methods = {}
 
-        def self.__trace(method:, service:, resource: "#{self.to_s}##{method}")
+        def self.__trace(method:, service:, resource: "#{self}##{method}")
           return unless datadog_enabled?
 
           @traced_methods[method.to_sym] = {
@@ -23,6 +30,7 @@ module Datadog
           super
 
           return if !@traced_methods.key?(name) || @traced_methods.dig(name, :defined?)
+
           @traced_methods[name][:defined?] = true
 
           method = instance_method(name)

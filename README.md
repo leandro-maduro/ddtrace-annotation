@@ -25,34 +25,54 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-    class Test
-        include Datadog::Annotation
-        
-        __trace(
-            method: :method_to_be_traced,
-            service: "service-name"
-        )
-        def method_to_be_traced; end
-    end
+class Test
+  include Datadog::Annotation
+  
+  __trace(
+    method: :method_to_be_traced,
+    service: "service-name"
+  )
+  def method_to_be_traced; end
+end
 ```
 `__trace` accepts two more parameters, both of them are optionals:   
- - resource: action to be traced, by default its value is `class_name#method_name`, this parameter accepts a `String` or a `Proc`. So if you want to use some information that you receive by parameter you can use a proc.   
+ - resource: action to be traced, by default its value is `class_name#method_name`. This argument accepts a `String` or a `Proc`. So if you want to use some information that you receive by parameter you can use a proc.   
     Ex:    
     ```ruby
-        class Test
-            include Datadog::Annotation
-        
-            __trace(
-                method: :method_to_be_traced,
-                service: "service-name",
-                resource: Proc.new { |_, type| "MyClass##{type}"}
-            )
-            def method_to_be_traced(name, type); end
+    class Test
+      include Datadog::Annotation
+
+      __trace(
+        method: :method_to_be_traced,
+        service: "service-name",
+        resource: Proc.new { |_, type| "MyClass##{type}"}
+      )
+      def method_to_be_traced(name, type); end
+    end
     ```
 
     
- - metadata   
+ - metadata: allows you to set tags into the current trace. This argument accepts a `Proc`, it passes to the given proc the method arguments, the result of the method and the span.   
+    - args[Hash<Symbol, Object>].   
+    - result[Object].   
+    - span[Datadog::Span].   
+    
+    Ex:   
+    ```ruby
+    class Test
+      include Datadog::Annotation
 
+      __trace(
+        method: :method_to_be_traced,
+        service: "service-name",
+        metadata: Proc.new do |args, result, span|
+          span.set_tag("name", args[:name])
+          span.set_tag("result", result)
+        end
+      )
+      def method_to_be_traced(name, type); end
+    end
+    ```
 
 ## Development
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "ddtrace/annotation/errors/invalid_proc"
 require "ddtrace/annotation/tracer"
 
 module Datadog
@@ -10,13 +11,18 @@ module Datadog
       # @param method [Symbol] name of the method to be traced
       # @param service [String] the service name for span
       # @param resource [String || Proc] the resource in which the current span refers
+      # @param metadata_proc [Proc] Block which sets tags into current trace.
+      #   It receives original args, result of the traced method and span
       # @see Datadog::Annotation::Tracer.trace
-      def __trace(method:, service:, resource: "#{self}##{method}")
+      def __trace(method:, service:, resource: "#{self}##{method}", metadata_proc: nil)
         return unless datadog_enabled?
+
+        validate_metadata_proc!(metadata_proc)
 
         @traced_methods[method.to_sym] = {
           service: service,
           resource: resource,
+          metadata_proc: metadata_proc,
           defined?: false
         }
       end
@@ -45,6 +51,12 @@ module Datadog
 
       def datadog_enabled?
         Datadog.respond_to?(:tracer) && Datadog.tracer.enabled
+      end
+
+      def validate_metadata_proc!(metadata_proc)
+        return if metadata_proc.nil?
+
+        raise Errors::InvalidProc, "MetadataProc must be a Proc" unless metadata_proc.is_a?(Proc)
       end
     end
   end

@@ -37,6 +37,7 @@ RSpec.describe Datadog::Annotation do
         trace_info: {
           service: "test",
           resource: "DatadogAnnotationTest#test",
+          metadata_proc: nil,
           defined?: true
         },
         args: [1, 2]
@@ -46,6 +47,7 @@ RSpec.describe Datadog::Annotation do
         trace_info: {
           service: "test",
           resource: "DatadogAnnotationTest#test2",
+          metadata_proc: nil,
           defined?: true
         },
         args: []
@@ -67,6 +69,26 @@ RSpec.describe Datadog::Annotation do
         expect(Datadog::Annotation::Tracer).not_to receive(:trace)
 
         DatadogAnnotationTest.new.test(1, 2)
+      end
+    end
+
+    context "when metadata_proc is not a Proc" do
+      it "raises InvalidProc" do
+        expect do
+          eval <<-OBJECT
+            class DatadogAnnotationProcTest
+              include Datadog::Annotation
+
+              __trace(
+                method: :test,
+                service: "test",
+                metadata_proc: "test"
+              )
+
+              def test(a, b); end
+            end
+          OBJECT
+        end.to raise_error(Datadog::Annotation::Errors::InvalidProc)
       end
     end
   end

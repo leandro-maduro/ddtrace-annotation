@@ -2,7 +2,9 @@ require "spec_helper"
 
 RSpec.describe Datadog::Annotation::Tracer do
   class DatadogAnnotationTracerTest
-    def test(name, message); end
+    def test(name, message)
+      "name: #{name}, type: #{message[:type]}"
+    end
   end
 
   describe ".trace" do
@@ -75,6 +77,28 @@ RSpec.describe Datadog::Annotation::Tracer do
       end
 
       it { expect { trace }.to raise_error(Datadog::Annotation::Errors::InvalidResource) }
+    end
+
+    context "when metadata_proc is given" do
+      let(:trace_info) do
+        {
+          service: "web",
+          resource: "test",
+          metadata_proc: proc do |args, result, span|
+            span.set_tag("name", args.dig(:name))
+            span.set_tag("type", args.dig(:message, :type))
+            span.set_tag("result", result)
+          end
+        }
+      end
+
+      it "sets tags to span" do
+        expect(span).to receive(:set_tag).once.with("name", "name")
+        expect(span).to receive(:set_tag).once.with("type", "type")
+        expect(span).to receive(:set_tag).once.with("result", "name: name, type: type")
+
+        trace
+      end
     end
   end
 end

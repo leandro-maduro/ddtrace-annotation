@@ -1,5 +1,6 @@
 # Datadog Annotation
 
+[![Gem Version](https://badge.fury.io/rb/ddtrace-annotation.svg)](https://badge.fury.io/rb/ddtrace-annotation)
 [![Build Status](https://travis-ci.com/downgba/ddtrace-annotation.svg?branch=master)](https://travis-ci.com/downgba/ddtrace-annotation)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b48b7c15e8925e6f2c6d/maintainability)](https://codeclimate.com/github/downgba/ddtrace-annotation/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b48b7c15e8925e6f2c6d/test_coverage)](https://codeclimate.com/github/downgba/ddtrace-annotation/test_coverage)

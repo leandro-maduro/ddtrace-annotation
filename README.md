@@ -1,8 +1,10 @@
-# Ddtrace::Annotation
+# Datadog Annotation
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ddtrace/annotation`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![Build Status](https://travis-ci.com/downgba/ddtrace-annotation.svg?branch=master)](https://travis-ci.com/downgba/ddtrace-annotation)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b48b7c15e8925e6f2c6d/maintainability)](https://codeclimate.com/github/downgba/ddtrace-annotation/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/b48b7c15e8925e6f2c6d/test_coverage)](https://codeclimate.com/github/downgba/ddtrace-annotation/test_coverage)
 
-TODO: Delete this and the text above, and describe your gem
+Datadog Annotation allows you to annotate methods to be traced by Datadog Tracing Ruby Client.
 
 ## Installation
 
@@ -22,7 +24,35 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+    class Test
+        include Datadog::Annotation
+        
+        __trace(
+            method: :method_to_be_traced,
+            service: "service-name"
+        )
+        def method_to_be_traced; end
+    end
+```
+`__trace` accepts two more parameters, both of them are optionals:   
+ - resource: action to be traced, by default its value is `class_name#method_name`, this parameter accepts a `String` or a `Proc`. So if you want to use some information that you receive by parameter you can use a proc.   
+    Ex:    
+    ```ruby
+        class Test
+            include Datadog::Annotation
+        
+            __trace(
+                method: :method_to_be_traced,
+                service: "service-name",
+                resource: Proc.new { |_, type| "MyClass##{type}"}
+            )
+            def method_to_be_traced(name, type); end
+    ```
+
+    
+ - metadata   
+
 
 ## Development
 
@@ -32,7 +62,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ddtrace-annotation.
+Bug reports and pull requests are welcome on GitHub at https://github.com/downgba/ddtrace-annotation.
 
 ## License
 

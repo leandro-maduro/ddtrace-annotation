@@ -63,11 +63,7 @@ RSpec.describe Datadog::Annotation::Tracer do
         }
       end
 
-      it "uses default value" do
-        expect(ddtracer).to receive(:trace).once.with("DatadogAnnotationTracerTest#test", service: "web")
-
-        trace
-      end
+      it { expect { trace }.to raise_error(Datadog::Annotation::Errors::InvalidResource) }
     end
 
     context "when resource is empty" do
@@ -78,11 +74,7 @@ RSpec.describe Datadog::Annotation::Tracer do
         }
       end
 
-      it "uses default value" do
-        expect(ddtracer).to receive(:trace).once.with("DatadogAnnotationTracerTest#test", service: "web")
-
-        trace
-      end
+      it { expect { trace }.to raise_error(Datadog::Annotation::Errors::InvalidResource) }
     end
   end
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "ddtrace/annotation/version"
+require "ddtrace/annotation/errors/base"
 require "ddtrace/annotation/tracer"
 
 module Datadog

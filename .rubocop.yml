@@ -5,20 +5,29 @@ Metrics/ClassLength:
   Max: 150
 
 Metrics/BlockLength:
+  ExcludedMethods:
+    - "class_eval"
   Exclude:
     - "**/*_spec.rb"
+
+Metrics/MethodLength:
+  Max: 20
+  ExcludedMethods:
+    - "included"
 
 Metrics/ModuleLength:
   Exclude:
     - "spec/**/*.rb"
 
-Performance/FixedSize:
-  Exclude:
-    - "spec/**/*.rb"
+Metrics/AbcSize:
+  Max: 20
 
 Style/FrozenStringLiteralComment:
   Exclude:
     - "spec/**/*.rb"
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
 
 AllCops:
   Exclude:
@@ -30,5 +39,7 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - "spec/**/*"
 
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
+
+EvalWithLocation:
+  Exclude:
+    - "spec/**/*.rb"

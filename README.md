@@ -12,8 +12,10 @@ Datadog Annotation allows you to annotate methods to be traced by Datadog Tracin
 Add this line to your application's Gemfile:
 
 ```ruby
+gem 'ddtrace'
 gem 'ddtrace-annotation'
 ```
+Access [https://docs.datadoghq.com/tracing/setup/ruby](https://docs.datadoghq.com/tracing/setup/ruby/) to see how to setup Datadog Tracing Client.
 
 And then execute:
 

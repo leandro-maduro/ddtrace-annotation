@@ -9,7 +9,7 @@ Datadog Annotation allows you to annotate methods to be traced by Datadog Tracin
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add these lines to your application's Gemfile:
 
 ```ruby
 gem 'ddtrace'

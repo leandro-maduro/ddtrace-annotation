@@ -15,7 +15,6 @@ Add this line to your application's Gemfile:
 gem 'ddtrace'
 gem 'ddtrace-annotation'
 ```
-Access [https://docs.datadoghq.com/tracing/setup/ruby](https://docs.datadoghq.com/tracing/setup/ruby/) to see how to setup Datadog Tracing Client.
 
 And then execute:
 
@@ -24,6 +23,8 @@ And then execute:
 Or install it yourself as:
 
     $ gem install ddtrace-annotation
+
+Access [https://docs.datadoghq.com/tracing/setup/ruby](https://docs.datadoghq.com/tracing/setup/ruby/) to see how to setup Datadog Tracing Client.
 
 ## Usage
 
